@@ -25,8 +25,7 @@ model Category {
   children Category[] @relation("CategoryToCategory")
   
   categoryType CategoryType
-
-  transactions Transaction[]
+  records Record[]
 
   @@map("categories")
 }
@@ -36,7 +35,7 @@ enum CategoryType {
   EXPENSE
 }
 
-model Transaction {
+model Record {
   id          Int      @id @default(autoincrement())
   amount      Float
   description String?
@@ -46,6 +45,20 @@ model Transaction {
   
   categoryId  Int
   category    Category @relation(fields: [categoryId], references: [id])
+  
+  walletId    Int
+  wallet      Wallet   @relation(fields: [walletId], references: [id])
+  @@map("records")
+}
 
-  @@map("transactions")
+model Wallet {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  balance   Int    @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  records   Record[]
+
+  @@map("wallets")
 }

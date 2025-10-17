@@ -6,6 +6,8 @@ export class TransactionModel {
     categoryId: number;
     createdAt: Date;
     updatedAt: Date;
+    
+    walletId: number;
 
     constructor(partial: Partial<TransactionModel>) {
         Object.assign(this, partial);

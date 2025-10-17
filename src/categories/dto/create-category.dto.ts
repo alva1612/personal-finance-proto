@@ -1,7 +1,4 @@
-export enum CategoryType {
-    INCOME = 'INCOME',
-    EXPENSE = 'EXPENSE',
-}
+import { CategoryType } from "generated/prisma";
 
 export class CategoryModel {
     id?: number;

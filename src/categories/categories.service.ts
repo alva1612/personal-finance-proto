@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { prisma } from 'src/prisma.client';
+import { CategoryType } from 'generated/prisma';
 
 @Injectable()
 export class CategoriesService {
@@ -11,8 +12,12 @@ export class CategoriesService {
     })
   }
 
-  findAll() {
-    return this.getClient().category.findMany();
+  findAll(categoryType?: CategoryType) {
+    const where = categoryType ? { categoryType } : {};
+    
+    return this.getClient().category.findMany({
+      where,
+    });
   }
 
   findOne(id: number) {
